@@ -1,50 +1,53 @@
+       # 0 1 2 3 4 5 6 7 8 9 10 11
+map1 = [[1,1,1,1,1,1,1,1,1,1,1,1], # 0
+        [1,0,0,0,0,0,1,0,0,0,0,1], # 1
+        [1,0,1,0,1,0,1,1,1,0,1,1], # 2
+        [1,0,1,0,1,0,0,0,0,0,0,1], # 3
+        [1,0,0,1,1,1,0,1,0,1,1,1], # 4
+        [1,0,1,1,0,1,1,1,0,1,0,1], # 5
+        [1,0,0,0,0,1,0,1,0,1,0,1], # 6
+        [1,1,1,1,0,1,0,1,0,1,0,1], # 7
+        [1,0,0,0,0,0,0,1,0,1,0,1], # 8
+        [1,1,0,1,1,1,0,1,0,0,0,1], # 9
+        [1,0,0,0,0,0,0,0,0,1,0,1], # 10
+        [1,1,1,1,1,1,1,1,1,1,1,1]] # 11
 
-class Node:
-    def __init__(self, data,left = None ,right = None,forward = None,bottom=None):
-        self.data = data
-        self.left = left
-        self.right = right
-        self.forward = forward
-        self.bottom = bottom
-        
-def addData(r,data):
-    if r is None:
-        return Node(data)
-    else:
-        
-        if r.data != data:
-            if data[0] < r.data[0] :
-                r.forward = addData(r.forward,data)             
-            elif data[1] < r.data[1]:
-                r.left = addData(r.left,data) 
-            elif data[1] > r.data[1]:
-                r.right = addData(r.right,data) 
-            else:
-                r.bottom = addData(r.bottom,data)       
-        return r
-            
-def printLevelsRecursively(root) :
-        h = height(root);
-        for i in range (h):
-            print("Level ",i+1," : ",end=' ')
-            printSingleLevelRecursively(root, i+1)
-            print('')
+def checkwall(map1,current):
+    x=current[0]
+    y=current[1]
+    if(map1[x][y] != 1):
+        return True
+    return False
 
+buffer=[]
+next_current = []
+current = (10,10)
+graph={}
+graph[current]=set()
 
-def height(r):
-    if r is None :
-        return 0
-    return max(height(r.left),height(r.forward),height(r.right))+1
+next_current.append(current)
+limit=2
+level=0
+while(level<limit):
+    print("level:",level," ","limit:",limit)
+    for current in next_current:
+        print('*current:',current)
+        x=current[0]
+        y=current[1]
+        array = [(x,y-1),(x,y+1),(x-1,y),(x+1,y)]
+        for i in range (len(array)):
+            print('#')
+            if checkwall(map1,array[i]):
+                if array[i] not in graph:
+                    graph[array[i]]=set()
+                graph[current].add(array[i])
+                buffer.append(array[i])
 
-def printSingleLevelRecursively(root,level):
-    if root == None:
-        return;
-    if level == 1:
-        print(root.data,end=' ')
-    else:
-        printSingleLevelRecursively(root.left, level - 1)        
-        printSingleLevelRecursively(root.right, level - 1)
-        printSingleLevelRecursively(root.forward, level - 1)
-        printSingleLevelRecursively(root.bottom, level - 1)
-
-
+    next_current=buffer
+    print("next_current:", next_current)
+#     for keys,values in graph.items():
+#         print('keys: ',keys)
+#         print('values: ',values)
+    level+=1
+    print('')
+    print('')
