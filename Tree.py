@@ -1,16 +1,4 @@
-map = [[1,1,1,1,0,1,1,1,1,1,1,1],
-        [1,0,0,0,0,0,1,0,0,0,0,1],
-        [1,0,1,0,1,0,1,1,1,0,1,1],
-        [1,0,1,0,1,0,0,0,0,0,0,1],
-        [1,0,0,1,1,1,0,1,0,1,1,1],
-        [1,0,1,1,0,1,1,1,0,1,0,1],
-        [1,0,0,0,0,1,0,1,0,1,0,1],
-        [1,1,1,1,0,1,0,1,0,1,0,1],
-        [1,0,0,0,0,0,0,1,0,1,0,1],
-        [1,1,0,1,1,1,0,1,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,1,0,1],
-        [1,1,1,1,1,1,1,1,1,1,1,1]]
-l=121
+
 class Node:
     def __init__(self, data,left = None ,right = None,forward = None,bottom=None):
         self.data = data
@@ -33,12 +21,10 @@ def addData(r,data):
                 r.right = addData(r.right,data) 
             else:
                 r.bottom = addData(r.bottom,data)       
-        
         return r
             
 def printLevelsRecursively(root) :
         h = height(root);
-
         for i in range (h):
             print("Level ",i+1," : ",end=' ')
             printSingleLevelRecursively(root, i+1)
@@ -62,17 +48,3 @@ def printSingleLevelRecursively(root,level):
         printSingleLevelRecursively(root.bottom, level - 1)
 
 
-start = (10,10)
-goal = (1,1)
-r = Node(start)
-
-# addData(r,(7,10))
-# addData(r,(6,10))
-addData(r,(9,10)) #forward
-addData(r,(10,11)) #right
-addData(r,(10,9)) #left
-addData(r,(11,10)) #bottom
-addData(r,(10,10)) #parent
-addData(r,(10,9)) #left
-addData(r,(9,10)) #forward
-printLevelsRecursively(r)
