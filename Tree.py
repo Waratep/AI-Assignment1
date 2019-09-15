@@ -44,6 +44,7 @@ while(level<limit):
                 buffer.append(array[i])
 
     next_current=buffer
+    buffer=[]
     print("next_current:", next_current)
 #     for keys,values in graph.items():
 #         print('keys: ',keys)
@@ -51,3 +52,16 @@ while(level<limit):
     level+=1
     print('')
     print('')
+
+def dfs_paths(graph, start, goal):
+    
+    stack = [(start, [start])]
+    while stack:
+        (vertex, path) = stack.pop()
+        for next in graph[vertex] - set(path):
+            if next == goal:
+                yield path + [next]
+            else:
+                stack.append((next, path + [next]))
+
+list(dfs_paths(graph, (10,10), (1,1))) # [['A', 'C', 'F'], ['A', 'B', 'E', 'F']]
