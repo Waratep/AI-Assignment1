@@ -19,40 +19,6 @@ def checkwall(map1,current):
         return True
     return False
 
-buffer=[]
-next_current = []
-current = (10,10)
-graph={}
-graph[current]=set()
-
-next_current.append(current)
-limit=2
-level=0
-while(level<limit):
-    print("level:",level," ","limit:",limit)
-    for current in next_current:
-        print('*current:',current)
-        x=current[0]
-        y=current[1]
-        array = [(x,y-1),(x,y+1),(x-1,y),(x+1,y)]
-        for i in range (len(array)):
-            print('#')
-            if checkwall(map1,array[i]):
-                if array[i] not in graph:
-                    graph[array[i]]=set()
-                graph[current].add(array[i])
-                buffer.append(array[i])
-
-    next_current=buffer
-    buffer=[]
-    print("next_current:", next_current)
-#     for keys,values in graph.items():
-#         print('keys: ',keys)
-#         print('values: ',values)
-    level+=1
-    print('')
-    print('')
-
 def dfs_paths(graph, start, goal):
     
     stack = [(start, [start])]
@@ -61,7 +27,67 @@ def dfs_paths(graph, start, goal):
         for next in graph[vertex] - set(path):
             if next == goal:
                 yield path + [next]
+                
             else:
                 stack.append((next, path + [next]))
 
-list(dfs_paths(graph, (10,10), (1,1))) # [['A', 'C', 'F'], ['A', 'B', 'E', 'F']]
+buffer=[]
+next_current = []
+current = (10,10)
+graph={}
+graph[current]=set()
+
+next_current.append(current)
+limit = 20
+level = 0
+start = (10,10)
+end = (1,1)
+while(level<limit):
+#     print("level:",level," ","limit:",limit)
+    if list(dfs_paths(graph, start, end)) != [] : 
+        print('fined path from start to end')
+        print(list(dfs_paths(graph, start, end)))
+        break
+    for current in next_current:
+#         print('*current:',current)
+        x=current[0]
+        y=current[1]
+        array = [(x,y-1),(x,y+1),(x-1,y),(x+1,y)]
+        for i in range (len(array)):            
+            if checkwall(map1,array[i]):
+                if array[i] not in graph:
+                    graph[array[i]]=set()
+                graph[current].add(array[i])
+                buffer.append(array[i])
+
+    next_current = buffer
+    buffer = []
+#     print("next_current:", next_current)
+#     print("graph:",graph)
+#     for keys,values in graph.items():
+#         print('keys: ',keys)
+#         print('values: ',values)
+    level += 1
+#     print('')
+#     print('')
+print('level',level)
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+def printMap(map1):
+    # fig, ax = plt.subplots()
+    min_val, max_val = 0, 12
+    for i in range(12):
+        for j in range(12):
+            c = map1[i][j]
+    #         ax.text(i+0.5, j+0.5, str(c), va='center', ha='center')
+    plt.figure()
+    plt.matshow(map1, cmap=plt.cm.Blues)
+    # ax.set_xlim(min_val, max_val)
+    # ax.set_ylim(min_val, max_val)
+    # ax.set_xticks(np.arange(max_val))
+    # ax.set_yticks(np.arange(max_val))
+    # ax.grid()
+
+printMap(map1)
