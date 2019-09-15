@@ -29,8 +29,10 @@ def addData(r,data):
                 r.forward = addData(r.forward,data)             
             elif data[1] < r.data[1]:
                 r.left = addData(r.left,data) 
+            elif data[1] > r.data[1]:
+                r.right = addData(r.right,data) 
             else:
-                r.right = addData(r.right,data)       
+                r.bottom = addData(r.bottom,data)       
         
         return r
             
@@ -54,9 +56,11 @@ def printSingleLevelRecursively(root,level):
     if level == 1:
         print(root.data,end=' ')
     else:
-        printSingleLevelRecursively(root.left, level - 1)
-        printSingleLevelRecursively(root.forward, level - 1)
+        printSingleLevelRecursively(root.left, level - 1)        
         printSingleLevelRecursively(root.right, level - 1)
+        printSingleLevelRecursively(root.forward, level - 1)
+        printSingleLevelRecursively(root.bottom, level - 1)
+
 
 start = (10,10)
 goal = (1,1)
@@ -67,6 +71,7 @@ r = Node(start)
 addData(r,(9,10)) #forward
 addData(r,(10,11)) #right
 addData(r,(10,9)) #left
+addData(r,(11,10)) #bottom
 addData(r,(10,10)) #parent
 addData(r,(10,9)) #left
 addData(r,(9,10)) #forward
