@@ -1,7 +1,6 @@
 
-class ArrayMap():
-    def __init__(self):
-        self.Map  = [
+def getMap():
+    Map  = [
         [1,1,1,1,1,1,1,1,1,1,1,1],
         [1,0,0,0,0,0,1,0,0,0,0,1],
         [1,0,1,0,1,0,1,1,1,0,1,1],
@@ -15,7 +14,10 @@ class ArrayMap():
         [1,0,0,0,0,0,0,0,0,1,0,1],
         [1,1,1,1,1,1,1,1,1,1,1,1]
         ]
-        self.EmtryMap  = [
+    return Map
+
+def getEmtryMap():
+    EmtryMap  = [
         [0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0],
@@ -29,9 +31,4 @@ class ArrayMap():
         [0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0]
         ]
-
-    def getMap(self):
-        return self.Map
-
-    def getEmtryMap(self):
-        return self.EmtryMap
+    return EmtryMap
