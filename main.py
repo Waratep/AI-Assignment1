@@ -1,6 +1,6 @@
 from Map import getMap , getEmtryMap
 from Tree import Node , addData , printLevelsRecursively ,height ,printSingleLevelRecursively
-from Maze import checkcanwego , MoveMaze
+from Maze import checkcanwego 
 
 import time
 
@@ -16,55 +16,48 @@ if __name__ == "__main__":
 
     map = getMap()
 
-    howmany_canwego  = checkcanwego( current , map )
-    # print('howmany_canwego',howmany_canwego)
-    for cordinate in howmany_canwego:
-        if cordinate != None:
-            addData(root,cordinate)
-    level += 1
+    propofmap = 4
+    loop = 0
+    while (loop < propofmap):
 
-    # printLevelsRecursively(root)
+        if (1,1) in current:
+            break
 
-    levellist = []
-    printSingleLevelRecursively(root,level,levellist)
+        levellist = []
+        printSingleLevelRecursively(root,level,levellist)
 
-    current = MoveMaze( current , levellist )
-    # print('current',current)
-    
-    # printLevelsRecursively(root)
+        current = levellist
 
-###############################################################
+        print('current 1',current)
+        
+        printLevelsRecursively(root)
 
-    howmany_canwego  = checkcanwego( current , map )
-    print('howmany_canwego',howmany_canwego)
-    for cordinate in howmany_canwego:
-        if cordinate != None:
-            addData(root,cordinate)
-    level += 1
-
-    printLevelsRecursively(root)
-
-    levellist = []
-    printSingleLevelRecursively(root,level,levellist)
+        for x in current:
+            howmany_canwego  = checkcanwego( x , map )
+            print('howmany_canwego',howmany_canwego)
+            for cordinate in howmany_canwego:
+                if cordinate != None:
+                    addData(root,cordinate)
+                    print('add',cordinate)
+            current = levellist
+            print('current',x)
+        level += 1
 
 
-    current = MoveMaze( current , levellist )
-    print('current',current)
-    
-    printLevelsRecursively(root)
+        printLevelsRecursively
+        levellist = []
+        printSingleLevelRecursively(root,level,levellist)
+        print('level',level)
+        print('levellist',levellist)
+        current = levellist
+        print()
+        print('current 2',current)
+        print('============================================================')
 
-    for x in current:
-        howmany_canwego  = checkcanwego( x , map )
-        for cordinate in howmany_canwego:
-            if cordinate != None:
-                addData(root,cordinate)
+        print("#######################################################")
+        printLevelsRecursively(root)
+        print("#######################################################")
 
-        current = MoveMaze( x , levellist )
-        print('current',x)
+        loop += 1
 
-    printLevelsRecursively(root)
-    levellist = []
-    printSingleLevelRecursively(root,level,levellist)
-    current = levellist
-    print()
-    print('current',current)
+

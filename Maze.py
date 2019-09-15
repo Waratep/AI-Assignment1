@@ -37,23 +37,3 @@ def checkcanwego(_current,_map):
     return howmany_canwego 
 
      
-def MoveMaze(_current , levellist):
-
-    canwego = 0
-    counter = 0
-    current = _current
-
-    x = _current[0]
-    y = _current[1]
-
-    currents = []
-
-    if (len(levellist) == 1):
-        current = levellist.pop()
-        return current
-
-    else:
-        for i in levellist:
-            currents.append(i)
-
-        return currents
