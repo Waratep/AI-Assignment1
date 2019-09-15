@@ -24,11 +24,12 @@ def addData(r,data):
         return r
             
 def printLevelsRecursively(root) :
-        h = height(root);
-        for i in range (h):
-            print("Level ",i+1," : ",end=' ')
-            printSingleLevelRecursively(root, i+1)
-            print('')
+    h = height(root);
+    for i in range (h):
+        print("Level ",i+1," : ",end=' ')
+        printSingleLevelRecursively(root, i+1)
+        print('')
+
 
 
 def height(r):
@@ -36,15 +37,17 @@ def height(r):
         return 0
     return max(height(r.left),height(r.forward),height(r.right))+1
 
-def printSingleLevelRecursively(root,level):
+def printSingleLevelRecursively(root,level,levellist=None):
     if root == None:
         return;
     if level == 1:
         print(root.data,end=' ')
+        if (levellist != None):
+            levellist.append( root.data )
     else:
-        printSingleLevelRecursively(root.left, level - 1)        
-        printSingleLevelRecursively(root.right, level - 1)
-        printSingleLevelRecursively(root.forward, level - 1)
-        printSingleLevelRecursively(root.bottom, level - 1)
+        printSingleLevelRecursively(root.left, level - 1 , levellist)        
+        printSingleLevelRecursively(root.right, level - 1 , levellist)
+        printSingleLevelRecursively(root.forward, level - 1 , levellist)
+        printSingleLevelRecursively(root.bottom, level - 1 , levellist)
 
 
